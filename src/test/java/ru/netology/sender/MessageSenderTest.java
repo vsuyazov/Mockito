@@ -1,7 +1,6 @@
 package ru.netology.sender;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -47,31 +46,6 @@ public class MessageSenderTest {
         return Stream.of(
                 Arguments.of("96.44.183.149", "Welcome"),
                 Arguments.of("172.0.32.11", "Добро пожаловать")
-        );
-    }
-
-    @Test
-    public void testLocation_byIP() {
-        String IP = GeoServiceImpl.MOSCOW_IP;
-        Location expectedResult = new Location("Moscow", Country.RUSSIA, "Lenina", 15);
-        GeoServiceImpl Actual = new GeoServiceImpl();
-        Assertions.assertEquals(Actual.byIp(IP).getCity(), expectedResult.getCity());
-        Assertions.assertEquals(Actual.byIp(IP).getCountry(), expectedResult.getCountry());
-        Assertions.assertEquals(Actual.byIp(IP).getStreet(), expectedResult.getStreet());
-        Assertions.assertEquals(Actual.byIp(IP).getBuiling(), expectedResult.getBuiling());
-    }
-
-    @ParameterizedTest
-    @MethodSource("locale")
-    public void test_locale(Country country, String message) {
-        LocalizationService result = new LocalizationServiceImpl();
-        Assertions.assertEquals(result.locale(country), message);
-    }
-
-    public static Stream<Arguments> locale() {
-        return Stream.of(
-                Arguments.of(Country.RUSSIA, "Добро пожаловать"),
-                Arguments.of(Country.USA, "Welcome")
         );
     }
 }
